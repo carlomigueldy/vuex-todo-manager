@@ -1,6 +1,8 @@
 <template>
   <div>
-    <Todos />
+    <div class="container">
+      <Todos />
+    </div>
   </div>
 </template>
 
