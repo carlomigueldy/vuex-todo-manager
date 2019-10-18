@@ -6,6 +6,7 @@
         v-for="(todo, index) in getTodos" 
         class="todo">
         {{ todo.title }}
+        <button class="delete" @click="deleteTodo(todo.id)">Delete</button>
       </div>
     </div>
   </div>
@@ -18,7 +19,7 @@ export default {
   name: 'Todos',
   computed: mapGetters(['getTodos']),
   methods: {
-    ...mapActions(['fetchTodos']),
+    ...mapActions(['fetchTodos', 'deleteTodo']),
   },
   created() {
     this.fetchTodos()
@@ -40,6 +41,13 @@ export default {
   border-radius: 5px;
   text-align: center;
   position: relative;
+  cursor: pointer;
+}
+
+.delete {
+  position: absolute;
+  bottom: 1px;
+  right: 5px;
   cursor: pointer;
 }
 </style>
