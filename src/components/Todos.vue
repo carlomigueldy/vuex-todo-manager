@@ -12,9 +12,12 @@
     </div>
 
     <div class="todos">
-      <div :key="index"
+      <div 
+        @dblclick="onDblClick(todo)"
+        :key="index"
         v-for="(todo, index) in getTodos" 
-        class="todo">
+        class="todo"
+        :class="{ 'is-complete': todo.completed }">
         {{ todo.title }}
         <button class="delete" @click="deleteTodo(todo.id)">Delete</button>
       </div>
@@ -29,7 +32,17 @@ export default {
   name: 'Todos',
   computed: mapGetters(['getTodos']),
   methods: {
-    ...mapActions(['fetchTodos', 'deleteTodo']),
+    onDblClick(todo) {
+      const updTodo = {
+        id: todo.id,
+        title: todo.title,
+        completed: !todo.completed,
+      }
+
+      this.updateTodo(updTodo)
+    },
+    
+    ...mapActions(['fetchTodos', 'deleteTodo', 'updateTodo']),
   },
   created() {
     this.fetchTodos()
@@ -79,6 +92,11 @@ export default {
   width: 10px;
   height: 10px;
   background: #41b883;
+}
+
+.is-complete {
+  background-color: #35495e;
+  color: #fff;
 }
 
 @media (max-width: 500px) {
